@@ -1,5 +1,5 @@
 
-from nn import NeuralNet
+from lib.nn import NeuralNet
 import pytest
 import numpy as np
 
