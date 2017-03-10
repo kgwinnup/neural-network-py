@@ -5,6 +5,13 @@ import math
 class NeuralNet:
 
     def __init__(self, Y, X, hidden=[1], iterations=10000):
+        """
+        initialize this neural net object with training set, dependent variables and other optional parameters
+        @param Y dependent variables
+        @param X training set
+        @param hidden list of layers, which each integer describing how many nodes in that layer
+        @param iterations, how many loops to 'learn'
+        """
         self.X = X
         self.Y = Y
         self.hidden = hidden
@@ -28,6 +35,7 @@ class NeuralNet:
         return layers
 
     def predict(self, X):
+        """given a new feature set, determine its learned dependent value"""
         return {'yhat': self.forward(X, self.synapses)[-1],
                 'mse': np.mean(map(lambda x: x**2, self.error))}
 
