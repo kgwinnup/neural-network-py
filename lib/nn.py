@@ -3,7 +3,7 @@ import numpy as np
 
 class NeuralNet:
 
-    def __init__(self, Y, X, hidden=[1], iterations=10000):
+    def __init__(self, Y, X, hidden=[1], iterations=10000, normalize=False):
         """
         initialize this neural net object with training set, dependent variables and other optional parameters
         @param Y dependent variables
@@ -11,12 +11,13 @@ class NeuralNet:
         @param hidden list of layers, which each integer describing how many nodes in that layer
         @param iterations, how many loops to 'learn'
         """
-        self.X = X
+        self.X = X if not normalize else self.normalize(X)
         self.Y = Y
         self.hidden = hidden
         self.iterations = iterations
         self.synapses = None
         self.error = None
+        self.normalized = normalize
 
     def sigmoid(self, t):
         return 1 / (1 + np.exp(-t))
@@ -36,7 +37,12 @@ class NeuralNet:
     def predict(self, X):
         """given a new feature set, determine its learned dependent value"""
         return {'yhat': self.forward(X, self.synapses)[-1],
-                'mse': np.mean(map(lambda x: x**2, self.error))}
+                'mse': np.mean(map(lambda x: x**2, self.error)),
+                'normalized_X': True,
+                'layers': self.synapses}
+
+    def normalize(self, M):
+        return (M - M.mean()) / (M.max() - M.min())
 
     def learn(self):
         synapses = []

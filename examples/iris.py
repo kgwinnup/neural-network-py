@@ -15,12 +15,11 @@ if __name__ == '__main__':
     df = pd.read_csv("iris.csv")
     df['category'] = df['Species'].map(lambda x: categories[x])
     X = df[['SepalLengthCm', 'SepalWidthCm', 'PetalLengthCm', 'PetalWidthCm']].as_matrix()
-    X_norm = (X - X.mean()) / (X.max() - X.min())
     Y = df[['category']].as_matrix()
 
     # run the NN module and output results
-    nn = NeuralNet(Y, X_norm, hidden=[4], iterations=100000)
+    nn = NeuralNet(Y, X, normalize=True, hidden=[2], iterations=100000)
     nn.learn()
-    out = nn.predict(X_norm)
+    out = nn.predict(nn.normalize(X))
     print map(lambda x: round(x), out['yhat'])
     print out['mse']
