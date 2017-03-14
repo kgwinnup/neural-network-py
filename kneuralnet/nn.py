@@ -29,9 +29,9 @@ class NeuralNet:
         layers = []
         for i in range(0, len(synapses)):
             if i == 0:
-                layers.append(self.sigmoid(np.dot(X, synapses[i])))
+                layers.append(self.sigmoid(X.dot(synapses[i])))
             else:
-                layers.append(self.sigmoid(np.dot(layers[i-1], synapses[i])))
+                layers.append(self.sigmoid(layers[i-1].dot(synapses[i])))
         return layers
 
     def predict(self, X):
