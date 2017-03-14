@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 import sys, os
 sys.path.insert(1, os.path.join(sys.path[0], '..'))
-from lib.nn import NeuralNet
+from kneuralnet.nn import NeuralNet
 
 categories = {'Iris-setosa': 0,
               'Iris-virginica': 1,
