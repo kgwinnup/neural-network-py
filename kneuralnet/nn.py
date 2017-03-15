@@ -3,13 +3,14 @@ import numpy as np
 
 class NeuralNet:
 
-    def __init__(self, Y, X, hidden=[1], iterations=10000, normalize=False):
+    def __init__(self, Y, X, hidden=[1], iterations=10000, normalize=False, bias=0):
         """
         initialize this neural net object with training set, dependent variables and other optional parameters
         @param Y dependent variables
         @param X training set
         @param hidden list of layers, which each integer describing how many nodes in that layer
         @param iterations, how many loops to 'learn'
+        @param bias introduce a bias unit to the neuron, default is 0
         """
         self._X = X if not normalize else self.normalize(X)
         self._Y = Y
@@ -18,6 +19,7 @@ class NeuralNet:
         self._synapses = None
         self._error = None
         self._normalize = normalize
+        self._bias = bias
 
     def sigmoid(self, t):
         return 1 / (1 + np.exp(-t))
@@ -29,9 +31,9 @@ class NeuralNet:
         layers = []
         for i in range(0, len(synapses)):
             if i == 0:
-                layers.append(self.sigmoid(X.dot(synapses[i])))
+                layers.append(self.sigmoid(X.dot(synapses[i]) + self._bias))
             else:
-                layers.append(self.sigmoid(layers[i-1].dot(synapses[i])))
+                layers.append(self.sigmoid(layers[i-1].dot(synapses[i]) + self._bias))
         return layers
 
     def predict(self, X):
