@@ -8,7 +8,7 @@ from kneuralnet.nn import NeuralNet
 
 categories = {'Iris-setosa': 0,
               'Iris-virginica': 1,
-              'Iris-versicolor': 1}
+              'Iris-versicolor': -1}
 
 if __name__ == '__main__':
     # get and clean the data
