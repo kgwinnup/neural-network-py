@@ -1,2 +1,2 @@
 
-import nn as kNeuralNet
+import nn as NeuralNet
