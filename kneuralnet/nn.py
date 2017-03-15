@@ -42,6 +42,7 @@ class NeuralNet:
         return {'yhat': self.forward(Z, self._synapses)[-1],
                 'mse': np.mean(map(lambda x: x**2, self._error)),
                 'normalize_X': True,
+                'bias': self._bias,
                 'layers': self._synapses}
 
     def normalize(self, M):
