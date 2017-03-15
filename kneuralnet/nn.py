@@ -36,7 +36,8 @@ class NeuralNet:
 
     def predict(self, X):
         """given a new feature set, determine its learned dependent value"""
-        return {'yhat': self.forward(X, self.synapses)[-1],
+        Z = self.normalize(x) if self.normalized else X
+        return {'yhat': self.forward(Z, self.synapses)[-1],
                 'mse': np.mean(map(lambda x: x**2, self.error)),
                 'normalized_X': True,
                 'layers': self.synapses}
