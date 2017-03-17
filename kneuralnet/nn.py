@@ -48,7 +48,7 @@ class NeuralNet:
 
     def forward(self, X, synapses):
         layers = []
-        for i in range(0, len(synapses)):
+        for i in range(len(synapses)):
             if i == 0:
                 layers.append(self._activation(X.dot(synapses[i]) + self._bias))
             else:
@@ -75,19 +75,19 @@ class NeuralNet:
 
         layers = []
         reverse = len(synapses) - 1
-        for i in range(0, self._iterations):
+        for i in range(self._iterations):
 
             layers = self.forward(self._X, synapses)
 
             deltas = []
-            for i in range(0, len(synapses)):
+            for i in range(len(synapses)):
                 if i == 0:
                     self._error = (self._Y - layers[reverse - i])
                     deltas.append( self._error * self._activation_prime(layers[reverse - i]) )
                 else:
                     deltas.append( deltas[i-1].dot(synapses[reverse - i + 1].T) * self._activation_prime(layers[reverse - i]) )
 
-            for i in range(0, len(synapses)):
+            for i in range(len(synapses)):
                 if i == len(synapses) - 1:
                     synapses[reverse - i] = synapses[reverse - i] + self._X.T.dot(deltas[i])
                 else:
