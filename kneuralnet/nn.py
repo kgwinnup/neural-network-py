@@ -48,11 +48,9 @@ class NeuralNet:
 
     def forward(self, X, synapses):
         layers = []
-        for i in range(len(synapses)):
-            if i == 0:
-                layers.append(self._activation(X.dot(synapses[i]) + self._bias))
-            else:
-                layers.append(self._activation(layers[i-1].dot(synapses[i]) + self._bias))
+        layers.append(self._activation(X.dot(synapses[0]) + self._bias))
+        for i in range(1, len(synapses)):
+            layers.append(self._activation(layers[i-1].dot(synapses[i]) + self._bias))
         return layers
 
     def predict(self, X):
